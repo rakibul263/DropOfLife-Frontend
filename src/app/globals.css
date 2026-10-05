@@ -1,0 +1,682 @@
+@import "tailwindcss";
+
+:root {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  --card: #18181b;
+  --card-foreground: #f4f4f5;
+  --popover: #18181b;
+  --popover-foreground: #f4f4f5;
+  --primary: #e11d48;
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #be123c;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #e11d48;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+  letter-spacing: -0.01em;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+  border: 2px solid #09090b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e11d48;
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s infinite ease-in-out;
+}
+
+@keyframes pulse-heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 12px rgba(225, 29, 72, 0);
+  }
+}
+
+.animate-pulse-heartbeat {
+  animation: pulse-heartbeat 2.2s infinite ease-in-out;
+}
+
+@keyframes radar-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-radar {
+  animation: radar-sweep 4s linear infinite;
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: rgba(24, 24, 27, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-crimson {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.15) 0%, rgba(136, 19, 55, 0.25) 100%);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(225, 29, 72, 0.35);
+}
+
+/* Liquid Glass Utilities */
+.liquid-glass {
+  background: rgba(9, 9, 11, 0.88);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+}
+
+.liquid-glass-scrolled {
+  background: rgba(9, 9, 11, 0.94);
+  backdrop-filter: blur(40px) saturate(220%);
+  -webkit-backdrop-filter: blur(40px) saturate(220%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 20px 45px -15px rgba(0, 0, 0, 0.95),
+    0 0 30px -5px rgba(225, 29, 72, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+}
+
+.liquid-pill {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.liquid-pill-active {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.22) 0%, rgba(159, 18, 57, 0.35) 100%);
+  border: 1px solid rgba(244, 63, 94, 0.45);
+  box-shadow: 
+    0 0 20px -3px rgba(225, 29, 72, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+}
+
+
+.blood-glow {
+  box-shadow: 0 0 35px -5px rgba(225, 29, 72, 0.35);
+}
+
+.medical-border {
+  border: 1px solid rgba(225, 29, 72, 0.2);
+}
+
+/* 3D & Hero Animations */
+@keyframes text-shimmer-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-text-shimmer {
+  background-size: 200% auto;
+  animation: text-shimmer-flow 5s ease infinite;
+}
+
+@keyframes float-levitate {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+.animate-float-levitate {
+  animation: float-levitate 4s ease-in-out infinite;
+}
+
+@keyframes float-levitate-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(8px) rotate(-1.5deg);
+  }
+}
+
+.animate-float-reverse {
+  animation: float-levitate-reverse 5.5s ease-in-out infinite;
+}
+
+@keyframes ecg-dash {
+  0% {
+    stroke-dashoffset: 400;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-ecg {
+  stroke-dasharray: 200;
+  animation: ecg-dash 2.8s linear infinite;
+}
+
+@keyframes glow-aura {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.04);
+  }
+}
+
+.animate-glow-aura {
+  animation: glow-aura 3.5s ease-in-out infinite;
+}
+
+@keyframes blood-stream-flow {
+  0% {
+    stroke-dashoffset: 80;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-blood-stream {
+  stroke-dasharray: 12 6;
+  animation: blood-stream-flow 1.5s linear infinite;
+}
+
+@keyframes pulse-soft-glow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(225, 29, 72, 0.4);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+    box-shadow: 0 0 25px rgba(225, 29, 72, 0.85);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-soft-glow 2.5s ease-in-out infinite;
+}
+
+
+/* Realistic Blood Bag & Liquid Physics Animations */
+@keyframes blood-wave-front {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes blood-wave-back {
+  0% {
+    transform: translateX(-50%);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-blood-wave-front {
+  animation: blood-wave-front 5s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+.animate-blood-wave-back {
+  animation: blood-wave-back 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+@keyframes blood-bubble-rise {
+  0% {
+    transform: translateY(100%) translateX(0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-20%) translateX(6px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.animate-blood-bubble-1 {
+  animation: blood-bubble-rise 3.2s ease-in infinite;
+}
+
+.animate-blood-bubble-2 {
+  animation: blood-bubble-rise 4.1s ease-in infinite 1s;
+}
+
+.animate-blood-bubble-3 {
+  animation: blood-bubble-rise 3.7s ease-in infinite 2.2s;
+}
+
+.animate-blood-bubble-4 {
+  animation: blood-bubble-rise 4.8s ease-in infinite 0.5s;
+}
+
+@keyframes barcode-laser-sweep {
+  0% {
+    top: 0%;
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    top: 92%;
+    opacity: 0.2;
+  }
+}
+
+.animate-barcode-laser {
+  animation: barcode-laser-sweep 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes brand-name-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(225, 29, 72, 0.4), 0 0 20px rgba(225, 29, 72, 0.2);
+    filter: drop-shadow(0 0 4px rgba(225, 29, 72, 0.3));
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(244, 63, 94, 0.85), 0 0 32px rgba(225, 29, 72, 0.6), 0 0 45px rgba(225, 29, 72, 0.4);
+    filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.6));
+    transform: scale(1.02);
+  }
+}
+
+.animate-brand-glow {
+  animation: brand-name-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes agitator-rock {
+  0%, 100% {
+    transform: rotate(-1.8deg) translateY(-2px);
+  }
+  50% {
+    transform: rotate(1.8deg) translateY(2px);
+  }
+}
+
+.animate-agitator-rock {
+  animation: agitator-rock 3s ease-in-out infinite;
+}
+
+@keyframes tubing-drip {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(180%);
+    opacity: 0;
+  }
+}
+
+.animate-tubing-drip {
+  animation: tubing-drip 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(225, 29, 72, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ========================================================
+   DropOfLife Ultra-Modern Liquid & Cardiac Loader Engine
+   ======================================================== */
+
+@keyframes cardiac-cycle {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px rgba(225, 29, 72, 0.45));
+  }
+  14% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 35px rgba(244, 63, 94, 0.85));
+  }
+  26% {
+    transform: scale(0.96);
+  }
+  38% {
+    transform: scale(1.09);
+    filter: drop-shadow(0 0 25px rgba(225, 29, 72, 0.65));
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+
+.animate-cardiac-cycle {
+  animation: cardiac-cycle 1.6s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+@keyframes ecg-laser-sweep {
+  0% {
+    stroke-dashoffset: 400;
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.1;
+  }
+}
+
+.animate-ecg-laser {
+  stroke-dasharray: 400;
+  animation: ecg-laser-sweep 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes vascular-shockwave {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-vascular-wave-1 {
+  animation: vascular-shockwave 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.animate-vascular-wave-2 {
+  animation: vascular-shockwave 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite 0.8s;
+}
+
+.animate-vascular-wave-3 {
+  animation: vascular-shockwave 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite 1.6s;
+}
+
+@keyframes liquid-perfusion-wave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-liquid-wave {
+  animation: liquid-perfusion-wave 3s linear infinite;
+}
+
+@keyframes micro-bubble-rise {
+  0% {
+    transform: translateY(25px) scale(0.5);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-35px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.animate-bubble-1 {
+  animation: micro-bubble-rise 2.2s ease-in infinite;
+}
+
+.animate-bubble-2 {
+  animation: micro-bubble-rise 2.8s ease-in infinite 0.9s;
+}
+
+.animate-bubble-3 {
+  animation: micro-bubble-rise 3.2s ease-in infinite 1.6s;
+}
+
+@keyframes erythrocyte-spin-cw {
+  from {
+    transform: rotate(0deg) translateX(68px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(68px) rotate(-360deg);
+  }
+}
+
+@keyframes erythrocyte-spin-ccw {
+  from {
+    transform: rotate(360deg) translateX(84px) rotate(-360deg);
+  }
+  to {
+    transform: rotate(0deg) translateX(84px) rotate(0deg);
+  }
+}
+
+.animate-orbit-cw {
+  animation: erythrocyte-spin-cw 8s linear infinite;
+}
+
+.animate-orbit-ccw {
+  animation: erythrocyte-spin-ccw 11s linear infinite;
+}
+
+@keyframes neon-beam-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+.animate-neon-beam {
+  animation: neon-beam-sweep 2s ease-in-out infinite;
+}
+
+/* ==============================================================================
+   Rich Scroll-Triggered Entrance Animations (Reveal-on-Scroll)
+   ============================================================================== */
+
+/* Base initial hidden state */
+.scroll-reveal-auto,
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 36px, 0);
+  filter: blur(5px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+/* Directional variants */
+[data-reveal="fade-up"] {
+  transform: translate3d(0, 42px, 0);
+}
+
+[data-reveal="fade-down"] {
+  transform: translate3d(0, -42px, 0);
+}
+
+[data-reveal="fade-left"] {
+  transform: translate3d(-46px, 0, 0);
+}
+
+[data-reveal="fade-right"] {
+  transform: translate3d(46px, 0, 0);
+}
+
+[data-reveal="scale"] {
+  transform: translate3d(0, 24px, 0) scale(0.92);
+}
+
+/* Revealed active state */
+.scroll-reveal-auto.is-revealed,
+[data-reveal].is-revealed {
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) scale(1) !important;
+  filter: blur(0px) !important;
+}
+
+/* Stagger delay utility classes for cards & grids */
+.stagger-1, [data-reveal-delay="100"] { transition-delay: 80ms; }
+.stagger-2, [data-reveal-delay="200"] { transition-delay: 160ms; }
+.stagger-3, [data-reveal-delay="300"] { transition-delay: 240ms; }
+.stagger-4, [data-reveal-delay="400"] { transition-delay: 320ms; }
+.stagger-5, [data-reveal-delay="500"] { transition-delay: 400ms; }
+.stagger-6, [data-reveal-delay="600"] { transition-delay: 480ms; }
+.stagger-7, [data-reveal-delay="700"] { transition-delay: 560ms; }
+.stagger-8, [data-reveal-delay="800"] { transition-delay: 640ms; }
+
+/* Interactive Hover floating enhancement on revealed cards */
+.revealed-card-hover {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s ease;
+}
+
+.revealed-card-hover:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 40px -15px rgba(225, 29, 72, 0.18),
+              0 0 25px -5px rgba(225, 29, 72, 0.2);
+}
+
+/* Ensure grid items and scroll-reveal wrappers stretch to fill full row height equally */
+.grid > .scroll-reveal-item {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.grid > .scroll-reveal-item > * {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+/* Respect user accessibility motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-auto,
+  [data-reveal],
+  .scroll-reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
+
+
+
