@@ -69,10 +69,17 @@ function LoginContent() {
       if (event.data?.type === 'GOOGLE_AUTH_SUCCESS') {
         setIsGoogleSigningIn(false);
         if (event.data.status === 'AUTHENTICATED') {
+          setIsGoogleModalOpen(false);
           setAuth(
             event.data.user,
             event.data.accessToken || event.data.token,
             event.data.refreshToken
+          );
+          toast.success(
+            language === 'bn'
+              ? `স্বাগতম, ${event.data.user?.name || 'লাইফসেভার'}! আপনি সফলভাবে প্রবেশ করেছেন।`
+              : `Welcome back, ${event.data.user?.name || 'Lifesaver'}! You are logged in.`,
+            language === 'bn' ? 'লগইন সফল' : 'Login Successful'
           );
           const target = redirectPath || `/dashboard/${event.data.user.role || 'donor'}`;
           router.push(target);

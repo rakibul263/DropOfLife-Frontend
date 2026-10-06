@@ -144,18 +144,24 @@ export async function GET(request: Request) {
     let responsePayload: any;
     let setTokenCookie = false;
 
-    if (authData?.token && authData?.user && authData?.isProfileComplete) {
-      // Existing User With Complete Profile
+    const isExistingUser = !authData?.isNewUser && Boolean(authData?.user && (authData?.token || authData?.accessToken));
+    const isProfileReady = Boolean(authData?.isProfileComplete && authData?.user && (authData?.token || authData?.accessToken));
+
+    if (isExistingUser || isProfileReady) {
+      // Existing User With Account OR Complete Profile -> Immediate Direct Login
+      const activeToken = authData.accessToken || authData.token;
       responsePayload = {
         type: 'GOOGLE_AUTH_SUCCESS',
         status: 'AUTHENTICATED',
         user: authData.user,
-        token: authData.token,
+        token: activeToken,
+        accessToken: activeToken,
+        refreshToken: authData.refreshToken,
         returnUrl: returnUrl || `/dashboard/${authData.user.role || 'donor'}`,
       };
       setTokenCookie = true;
     } else {
-      // New User Or Incomplete Profile -> Needs Step 2
+      // New User Without An Account -> Needs Step 2
       responsePayload = {
         type: 'GOOGLE_AUTH_SUCCESS',
         status: 'NEEDS_STEP_2',
@@ -233,6 +239,17 @@ export async function GET(request: Request) {
         <script>
           const payload = ${JSON.stringify(responsePayload)};
 
+          if (payload.status === 'AUTHENTICATED' && payload.user && payload.token) {
+            try {
+              localStorage.setItem('dropoflife_access_token', payload.accessToken || payload.token);
+              localStorage.setItem('dropoflife_token', payload.token);
+              localStorage.setItem('dropoflife_user', JSON.stringify(payload.user));
+              if (payload.refreshToken) {
+                localStorage.setItem('dropoflife_refresh_token', payload.refreshToken);
+              }
+            } catch (e) {}
+          }
+
           if (window.opener) {
             window.opener.postMessage(payload, window.location.origin);
             setTimeout(() => {
@@ -241,7 +258,7 @@ export async function GET(request: Request) {
           } else {
             // Full browser window redirect fallback
             if (payload.status === 'AUTHENTICATED') {
-              window.location.href = payload.returnUrl || '/dashboard/donor';
+              window.location.href = payload.returnUrl || '/dashboard/' + (payload.user?.role || 'donor');
             } else {
               const u = payload.googleUser;
               window.location.href = '/register?google_step2=true&name=' +
@@ -263,10 +280,31 @@ export async function GET(request: Request) {
       },
     });
 
-    if (setTokenCookie && authData?.token) {
+    if (setTokenCookie && (authData?.token || authData?.accessToken)) {
+      const activeToken = authData.accessToken || authData.token;
       response.headers.append(
         'Set-Cookie',
-        `token=${authData.token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${
+        `dropoflife_token=${activeToken}; Path=/; SameSite=Lax; Max-Age=${
+          7 * 24 * 60 * 60
+        }`
+      );
+      response.headers.append(
+        'Set-Cookie',
+        `dropoflife_role=${authData.user?.role || 'donor'}; Path=/; SameSite=Lax; Max-Age=${
+          7 * 24 * 60 * 60
+        }`
+      );
+      if (authData?.refreshToken) {
+        response.headers.append(
+          'Set-Cookie',
+          `dropoflife_refresh_token=${authData.refreshToken}; Path=/; SameSite=Lax; Max-Age=${
+            30 * 24 * 60 * 60
+          }`
+        );
+      }
+      response.headers.append(
+        'Set-Cookie',
+        `token=${activeToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${
           7 * 24 * 60 * 60
         }`
       );

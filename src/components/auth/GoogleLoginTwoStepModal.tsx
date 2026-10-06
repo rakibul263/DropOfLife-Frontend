@@ -56,7 +56,7 @@ export function GoogleLoginTwoStepModal({
   const [successMsg, setSuccessMsg] = useState('');
 
   // Step 2 Form States
-  const [phone, setPhone] = useState('+8801521711716');
+  const [phone, setPhone] = useState('');
   const [bloodGroup, setBloodGroup] = useState<BloodGroup>('O+');
   const [gender, setGender] = useState<'Male' | 'Female' | 'Other'>('Male');
   const [division, setDivision] = useState('Dhaka');
@@ -89,12 +89,12 @@ export function GoogleLoginTwoStepModal({
         if (event.data.status === 'AUTHENTICATED') {
           // Existing User with Complete Profile -> Immediate Login
           setSuccessMsg(`Welcome back, ${event.data.user?.name || 'Lifesaver'}!`);
-          setAuth(event.data.user, event.data.token);
+          setAuth(event.data.user, event.data.accessToken || event.data.token, event.data.refreshToken);
 
           setTimeout(() => {
             onClose();
             router.push(event.data.returnUrl || onSuccessRedirect);
-          }, 600);
+          }, 300);
         } else if (event.data.status === 'NEEDS_STEP_2') {
           // New User or Incomplete Profile -> Transition to Step 2
           setGoogleUser(event.data.googleUser);
@@ -178,8 +178,8 @@ export function GoogleLoginTwoStepModal({
         role: 'donor',
       });
 
-      const { user, token } = res.data.data;
-      setAuth(user, token);
+      const { user, token, accessToken, refreshToken } = res.data.data;
+      setAuth(user, accessToken || token, refreshToken);
       setSuccessMsg('Donor profile verified! Welcome to DropOfLife.');
       toast.success('গুগল অ্যাকাউন্ট দিয়ে রেজিস্ট্রেশন সফল হয়েছে! ড্যাশবোর্ডে স্বাগতম।', 'ড্রপ অব লাইফ');
 
@@ -345,8 +345,8 @@ export function GoogleLoginTwoStepModal({
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="+8801521711716"
-                className="bg-white/[0.06] border-white/15 focus:border-rose-400 text-white font-mono h-11 text-sm rounded-xl"
+                placeholder="01712345678 or +8801712345678"
+                className="bg-white/[0.06] border-white/15 focus:border-rose-400 text-white font-mono h-11 text-sm rounded-xl placeholder:text-zinc-600"
               />
             </div>
 
