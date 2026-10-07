@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function HospitalRedirectPage() {
+function HospitalRedirectInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -17,5 +17,19 @@ export default function HospitalRedirectPage() {
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-zinc-400 font-mono">
       Redirecting to Healthcare Provider Portal...
     </div>
+  );
+}
+
+export default function HospitalRedirectPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-zinc-950 flex items-center justify-center text-zinc-400 font-mono">
+          Loading Hospital Portal...
+        </div>
+      }
+    >
+      <HospitalRedirectInner />
+    </Suspense>
   );
 }

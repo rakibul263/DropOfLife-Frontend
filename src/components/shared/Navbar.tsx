@@ -86,8 +86,15 @@ export const Navbar: React.FC = () => {
 
   const getRoleLabel = (role?: string) => {
     if (role === 'admin') return t.auth.roleAdmin;
-    if (role === 'provider') return t.auth.roleProvider;
+    if (role === 'provider' || role === 'hospital') return t.auth.roleProvider;
     return t.auth.roleDonor;
+  };
+
+  const getDashboardHref = (role?: string) => {
+    const normalized = (role || '').toLowerCase();
+    if (normalized === 'admin') return '/dashboard/admin';
+    if (normalized === 'provider' || normalized === 'hospital') return '/dashboard/provider';
+    return '/dashboard/donor';
   };
 
   return (
@@ -227,7 +234,7 @@ export const Navbar: React.FC = () => {
             {isAuthenticated && user ? (
               <div className="flex items-center gap-1.5 shrink-0 max-w-[220px]">
                 <Link
-                  href={`/dashboard/${user.role?.toLowerCase() || 'donor'}`}
+                  href={getDashboardHref(user.role)}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-xl liquid-pill border border-white/10 hover:border-rose-500/40 hover:bg-white/[0.08] transition-all shrink-1 min-w-0 group"
                   title={user.name}
                 >
@@ -377,7 +384,7 @@ export const Navbar: React.FC = () => {
             {isAuthenticated && user ? (
               <>
                 <Link
-                  href={`/dashboard/${user.role?.toLowerCase() || 'donor'}`}
+                  href={getDashboardHref(user.role)}
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full"
                 >

@@ -96,6 +96,38 @@ function RegisterContent() {
     }
   }, [searchParams]);
 
+  // Helper to determine safe destination based on user role and redirect param
+  const getRoleDestination = (userRole: string, redirectParam: string | null) => {
+    const normalizedRole = (userRole || '').toLowerCase();
+    const roleDashboard =
+      normalizedRole === 'admin'
+        ? '/dashboard/admin'
+        : normalizedRole === 'provider' || normalizedRole === 'hospital'
+        ? '/dashboard/provider'
+        : '/dashboard/donor';
+
+    if (redirectParam) {
+      if (redirectParam.startsWith('/dashboard/admin') && normalizedRole !== 'admin') {
+        return roleDashboard;
+      }
+      if (
+        (redirectParam.startsWith('/dashboard/provider') || redirectParam.startsWith('/dashboard/hospital')) &&
+        normalizedRole !== 'provider' &&
+        normalizedRole !== 'hospital'
+      ) {
+        return roleDashboard;
+      }
+      if (redirectParam.startsWith('/dashboard/donor') && normalizedRole !== 'donor') {
+        return roleDashboard;
+      }
+      if (redirectParam === '/dashboard' || redirectParam === '/dashboard/') {
+        return roleDashboard;
+      }
+      return redirectParam;
+    }
+    return roleDashboard;
+  };
+
   // Direct Google OAuth message listener from popup window
   React.useEffect(() => {
     const handleAuthMessage = (event: MessageEvent) => {
@@ -116,7 +148,7 @@ function RegisterContent() {
               : `Welcome back, ${event.data.user?.name || 'Lifesaver'}! You are logged in.`,
             language === 'bn' ? 'লগইন সফল' : 'Login Successful'
           );
-          const target = redirectPath || `/dashboard/${event.data.user.role || 'donor'}`;
+          const target = getRoleDestination(event.data.user?.role || 'donor', redirectPath);
           router.push(target);
         } else if (event.data.status === 'NEEDS_STEP_2') {
           setGoogleUserForModal(event.data.googleUser);
@@ -227,11 +259,8 @@ function RegisterContent() {
         language === 'bn' ? 'ড্রপ অব লাইফ' : 'DropOfLife'
       );
 
-      if (redirectPath) {
-        router.push(redirectPath);
-      } else {
-        router.push(`/dashboard/${user.role}`);
-      }
+      const target = getRoleDestination(user.role, redirectPath);
+      router.push(target);
     } catch (err: any) {
       const msg =
         err.message ||

@@ -25,7 +25,7 @@ export default function ProfileRedirectPage() {
     if (role === 'admin') {
       router.replace('/dashboard/admin');
     } else if (role === 'provider' || role === 'hospital') {
-      router.replace('/dashboard/hospital');
+      router.replace('/dashboard/provider');
     } else {
       router.replace('/dashboard/donor');
     }

@@ -35,12 +35,15 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       if (storedAccessToken && storedUser) {
         const parsedUser = JSON.parse(storedUser);
+        const normalizedRole: UserRole =
+          parsedUser.role === 'hospital' ? 'provider' : (parsedUser.role as UserRole);
+        parsedUser.role = normalizedRole;
         set({
           token: storedAccessToken,
           accessToken: storedAccessToken,
           refreshToken: storedRefreshToken || null,
           user: parsedUser,
-          role: parsedUser.role,
+          role: normalizedRole,
           isAuthenticated: true,
           isLoading: false,
         });
@@ -53,10 +56,14 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   setAuth: (user: User, accessToken: string, refreshToken?: string) => {
+    const normalizedRole: UserRole =
+      (user.role as string) === 'hospital' ? 'provider' : user.role;
+    const normalizedUser = { ...user, role: normalizedRole };
+
     if (typeof window !== 'undefined') {
       localStorage.setItem('dropoflife_access_token', accessToken);
       localStorage.setItem('dropoflife_token', accessToken);
-      localStorage.setItem('dropoflife_user', JSON.stringify(user));
+      localStorage.setItem('dropoflife_user', JSON.stringify(normalizedUser));
 
       if (refreshToken) {
         localStorage.setItem('dropoflife_refresh_token', refreshToken);
@@ -65,14 +72,14 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       // Set cookie for Next.js Edge Middleware
       document.cookie = `dropoflife_token=${accessToken}; path=/; max-age=86400; SameSite=Lax`;
-      document.cookie = `dropoflife_role=${user.role}; path=/; max-age=86400; SameSite=Lax`;
+      document.cookie = `dropoflife_role=${normalizedRole}; path=/; max-age=86400; SameSite=Lax`;
     }
     set({
-      user,
+      user: normalizedUser,
       token: accessToken,
       accessToken,
       refreshToken: refreshToken || null,
-      role: user.role,
+      role: normalizedRole,
       isAuthenticated: true,
       isLoading: false,
     });

@@ -4,13 +4,30 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get('dropoflife_token')?.value;
-  const role = request.cookies.get('dropoflife_role')?.value;
+  const rawRole = request.cookies.get('dropoflife_role')?.value;
+  const role = rawRole === 'hospital' ? 'provider' : rawRole;
 
   const isDashboardRoute = pathname.startsWith('/dashboard');
 
   // If attempting to access /dashboard/hospital directly, route to /dashboard/provider
   if (pathname.startsWith('/dashboard/hospital')) {
-    return NextResponse.redirect(new URL('/dashboard/provider', request.url));
+    const tab = request.nextUrl.searchParams.get('tab');
+    const dest = tab ? `/dashboard/provider?tab=${tab}` : '/dashboard/provider';
+    return NextResponse.redirect(new URL(dest, request.url));
+  }
+
+  // If visiting /dashboard directly, forward to role dashboard
+  if (pathname === '/dashboard' || pathname === '/dashboard/') {
+    if (!token) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+    const dest =
+      role === 'admin'
+        ? '/dashboard/admin'
+        : role === 'provider'
+        ? '/dashboard/provider'
+        : '/dashboard/donor';
+    return NextResponse.redirect(new URL(dest, request.url));
   }
 
   // If attempting to access protected dashboard without token
@@ -23,13 +40,16 @@ export function middleware(request: NextRequest) {
   // Role-based route guard:
   if (isDashboardRoute && role) {
     if (pathname.startsWith('/dashboard/admin') && role !== 'admin') {
-      return NextResponse.redirect(new URL(`/dashboard/${role}`, request.url));
+      const dest = role === 'provider' ? '/dashboard/provider' : '/dashboard/donor';
+      return NextResponse.redirect(new URL(dest, request.url));
     }
     if (pathname.startsWith('/dashboard/provider') && role !== 'provider') {
-      return NextResponse.redirect(new URL(`/dashboard/${role}`, request.url));
+      const dest = role === 'admin' ? '/dashboard/admin' : '/dashboard/donor';
+      return NextResponse.redirect(new URL(dest, request.url));
     }
     if (pathname.startsWith('/dashboard/donor') && role !== 'donor') {
-      return NextResponse.redirect(new URL(`/dashboard/${role}`, request.url));
+      const dest = role === 'admin' ? '/dashboard/admin' : '/dashboard/provider';
+      return NextResponse.redirect(new URL(dest, request.url));
     }
   }
 

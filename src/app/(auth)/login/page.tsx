@@ -61,6 +61,52 @@ function LoginContent() {
   const [googleModalStep, setGoogleModalStep] = useState<1 | 2>(1);
   const [isResetPasswordModalOpen, setIsResetPasswordModalOpen] = useState(false);
 
+  // Helper to determine safe destination based on user role and redirect param
+  const getRoleDestination = (
+    userRole: string,
+    redirectParam: string | null,
+    isExplicitDemoLogin = false
+  ) => {
+    const normalizedRole = (userRole || '').toLowerCase();
+    const roleDashboard =
+      normalizedRole === 'admin'
+        ? '/dashboard/admin'
+        : normalizedRole === 'provider' || normalizedRole === 'hospital'
+        ? '/dashboard/provider'
+        : '/dashboard/donor';
+
+    // 1-Click demo logins always route directly to that role's own portal
+    if (isExplicitDemoLogin) {
+      return roleDashboard;
+    }
+
+    if (redirectParam) {
+      // Disallow non-admins from being redirected into admin dashboard
+      if (redirectParam.startsWith('/dashboard/admin') && normalizedRole !== 'admin') {
+        return roleDashboard;
+      }
+      // Disallow non-providers from being redirected into provider/hospital dashboard
+      if (
+        (redirectParam.startsWith('/dashboard/provider') || redirectParam.startsWith('/dashboard/hospital')) &&
+        normalizedRole !== 'provider' &&
+        normalizedRole !== 'hospital'
+      ) {
+        return roleDashboard;
+      }
+      // Disallow non-donors from being redirected into donor dashboard
+      if (redirectParam.startsWith('/dashboard/donor') && normalizedRole !== 'donor') {
+        return roleDashboard;
+      }
+      // Generic dashboard root
+      if (redirectParam === '/dashboard' || redirectParam === '/dashboard/') {
+        return roleDashboard;
+      }
+      return redirectParam;
+    }
+
+    return roleDashboard;
+  };
+
   // Direct Google OAuth message listener from popup
   React.useEffect(() => {
     const handleAuthMessage = (event: MessageEvent) => {
@@ -81,7 +127,7 @@ function LoginContent() {
               : `Welcome back, ${event.data.user?.name || 'Lifesaver'}! You are logged in.`,
             language === 'bn' ? 'লগইন সফল' : 'Login Successful'
           );
-          const target = redirectPath || `/dashboard/${event.data.user.role || 'donor'}`;
+          const target = getRoleDestination(event.data.user?.role || 'donor', redirectPath);
           router.push(target);
         } else if (event.data.status === 'NEEDS_STEP_2') {
           setGoogleUserForModal(event.data.googleUser);
@@ -172,11 +218,8 @@ function LoginContent() {
         language === 'bn' ? 'লগইন সফল' : 'Login Successful'
       );
 
-      if (redirectPath) {
-        router.push(redirectPath);
-      } else {
-        router.push(`/dashboard/${user.role}`);
-      }
+      const target = getRoleDestination(user.role, redirectPath, false);
+      router.push(target);
     } catch (err: any) {
       const msg =
         err.message ||
@@ -212,11 +255,9 @@ function LoginContent() {
         language === 'bn' ? 'স্বাগতম' : 'Welcome'
       );
 
-      if (redirectPath) {
-        router.push(redirectPath);
-      } else {
-        router.push(`/dashboard/${user.role}`);
-      }
+      // 1-Click demo logins always route straight to the selected role's portal
+      const target = getRoleDestination(user.role || demo.role, redirectPath, true);
+      router.push(target);
     } catch (err: any) {
       const msg =
         err.message ||

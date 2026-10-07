@@ -56,14 +56,23 @@ function ProviderLayoutInner({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (isLoading) return;
+    if (!isAuthenticated) {
       router.push(`/login?redirect=${pathname}`);
+      return;
     }
-  }, [isLoading, isAuthenticated, router, pathname]);
+    if (user) {
+      const userRole = (user.role || '').toLowerCase();
+      if (userRole !== 'provider' && userRole !== 'hospital') {
+        const dest = userRole === 'admin' ? '/dashboard/admin' : '/dashboard/donor';
+        router.replace(dest);
+      }
+    }
+  }, [isLoading, isAuthenticated, user, router, pathname]);
 
   const handleLogout = () => {
     logout();
-    router.push('/login');
+    router.replace('/login');
   };
 
   interface NavItem {

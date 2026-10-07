@@ -61,14 +61,26 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (isLoading) return;
+    if (!isAuthenticated) {
       router.push(`/login?redirect=${pathname}`);
+      return;
     }
-  }, [isLoading, isAuthenticated, router, pathname]);
+    if (user) {
+      const userRole = (user.role || '').toLowerCase();
+      if (userRole !== 'admin') {
+        const dest =
+          userRole === 'provider' || userRole === 'hospital'
+            ? '/dashboard/provider'
+            : '/dashboard/donor';
+        router.replace(dest);
+      }
+    }
+  }, [isLoading, isAuthenticated, user, router, pathname]);
 
   const handleLogout = () => {
     logout();
-    router.push('/login');
+    router.replace('/login');
   };
 
   interface NavItem {
