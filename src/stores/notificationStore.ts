@@ -29,30 +29,13 @@ interface NotificationState {
   setDirectRequests: (reqs: any[]) => void;
 }
 
-const INITIAL_NOTIFICATIONS: AppNotification[] = [
-  {
-    id: 'init-1',
-    title: '🩸 ড্রপ অফ লাইফ পরিবারে স্বাগতম',
-    body: 'জরুরি রক্তদান ও হাসপাতাল সমন্বয় নেটওয়ার্কে আপনাকে স্বাগতম। আপনার এক ফোঁটা রক্ত বাঁচাতে পারে একটি জীবন।',
-    type: 'success',
-    timestamp: Date.now() - 1000 * 60 * 30, // 30 mins ago
-    read: false,
-  },
-  {
-    id: 'init-2',
-    title: '🚨 জরুরি রক্তের অ্যালার্ট • ঢাকা',
-    body: 'ঢাকা মেডিকেল কলেজ হাসপাতালে জরুরি ভিত্তিতে ২ ইউনিট O+ রক্তের প্রয়োজন।',
-    type: 'pledge',
-    timestamp: Date.now() - 1000 * 60 * 60 * 2, // 2 hours ago
-    read: true,
-  },
-];
+const INITIAL_NOTIFICATIONS: AppNotification[] = [];
 
 export const useNotificationStore = create<NotificationState>()(
   persist(
     (set, get) => ({
       notifications: INITIAL_NOTIFICATIONS,
-      unreadCount: 1,
+      unreadCount: 0,
       activeToast: null,
       isPanelOpen: false,
       directRequests: [],
@@ -112,9 +95,15 @@ export const useNotificationStore = create<NotificationState>()(
       name: 'dropoflife_notifications',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
-        notifications: state.notifications,
-        unreadCount: state.unreadCount,
+        notifications: state.notifications.filter((n) => !n.id.startsWith('init-')),
+        unreadCount: state.notifications.filter((n) => !n.id.startsWith('init-') && !n.read).length,
       }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.notifications = (state.notifications || []).filter((n) => !n.id.startsWith('init-'));
+          state.unreadCount = state.notifications.filter((n) => !n.read).length;
+        }
+      },
     }
   )
 );

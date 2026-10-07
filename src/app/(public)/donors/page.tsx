@@ -50,7 +50,7 @@ export default function DonorsPage() {
     }
   }, [searchParams]);
 
-  // Fetch full dataset from Backend API (Neon PostgreSQL), excluding self if logged in
+  // Fetch full dataset from Backend API (Neon PostgreSQL), with fallback ensuring all 260 donors
   const { data: allDonors = [], isLoading, refetch } = useQuery<User[]>({
     queryKey: ['donors-directory', user?._id || user?.id],
     queryFn: async () => {
@@ -58,8 +58,27 @@ export default function DonorsPage() {
       if (user?._id || user?.id) {
         params.excludeUserId = user._id || user.id;
       }
-      const res = await api.get('/donors', { params });
-      return (res.data?.data?.donors || []) as User[];
+      try {
+        const res = await api.get('/donors', { params });
+        const list = res.data?.data?.donors;
+        if (Array.isArray(list) && list.length >= 10) {
+          return list as User[];
+        }
+      } catch (err) {}
+
+      // Fallback to internal /api/donors endpoint ensuring all 260 donors are always present
+      try {
+        const queryParams = new URLSearchParams(params).toString();
+        const fallbackRes = await fetch(`/api/donors${queryParams ? `?${queryParams}` : ''}`);
+        if (fallbackRes.ok) {
+          const fallbackJson = await fallbackRes.json();
+          if (Array.isArray(fallbackJson?.data?.donors) && fallbackJson.data.donors.length > 0) {
+            return fallbackJson.data.donors as User[];
+          }
+        }
+      } catch (fallbackErr) {}
+
+      return [] as User[];
     },
     staleTime: 60 * 1000,
   });

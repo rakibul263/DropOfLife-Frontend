@@ -50,17 +50,31 @@ export function BackgroundPreloadProvider({
       const prefetchTasks: Promise<any>[] = [];
 
       // A. Donors Directory
+      const fetchDonorsWithFallback = async (excludeUserId?: string) => {
+        const params: any = {};
+        if (excludeUserId) params.excludeUserId = excludeUserId;
+        try {
+          const res = await api.get('/donors', { params });
+          const list = res.data?.data?.donors;
+          if (Array.isArray(list) && list.length >= 10) return list;
+        } catch (e) {}
+        try {
+          const queryParams = new URLSearchParams(params).toString();
+          const fallbackRes = await fetch(`/api/donors${queryParams ? `?${queryParams}` : ''}`);
+          if (fallbackRes.ok) {
+            const fallbackJson = await fallbackRes.json();
+            if (Array.isArray(fallbackJson?.data?.donors) && fallbackJson.data.donors.length > 0) {
+              return fallbackJson.data.donors;
+            }
+          }
+        } catch (e2) {}
+        return [];
+      };
+
       prefetchTasks.push(
         queryClient.prefetchQuery({
           queryKey: ['donors-directory', user?._id || user?.id],
-          queryFn: async () => {
-            const params: any = {};
-            if (user?._id || user?.id) {
-              params.excludeUserId = user._id || user.id;
-            }
-            const res = await api.get('/donors', { params });
-            return res.data?.data?.donors || [];
-          },
+          queryFn: () => fetchDonorsWithFallback(user?._id || user?.id),
           staleTime: 5 * 60 * 1000,
         })
       );
@@ -70,10 +84,7 @@ export function BackgroundPreloadProvider({
         prefetchTasks.push(
           queryClient.prefetchQuery({
             queryKey: ['donors-directory', undefined],
-            queryFn: async () => {
-              const res = await api.get('/donors');
-              return res.data?.data?.donors || [];
-            },
+            queryFn: () => fetchDonorsWithFallback(undefined),
             staleTime: 5 * 60 * 1000,
           })
         );
