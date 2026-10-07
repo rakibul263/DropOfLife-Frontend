@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Video Recording & Walkthrough Guides
+VIDEO_EXPLANATION_GUIDE.md
+video_explanation_guide.md
+*video*guide*.md
+

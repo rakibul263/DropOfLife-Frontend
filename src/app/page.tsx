@@ -46,10 +46,8 @@ export default function HomePage() {
           <StatsOverview />
         </ScrollReveal>
 
-        {/* 3. The Real Clinical Blood Donation Journey */}
-        <ScrollReveal animation="fade-up" duration={800} threshold={0.1}>
-          <BloodDonationProcessInteractive />
-        </ScrollReveal>
+        {/* 3. The Real Clinical Blood Donation Journey (Scroll-Driven Interactive Runway) */}
+        <BloodDonationProcessInteractive />
 
         {/* 4. Interactive Blood Compatibility Matrix */}
         <ScrollReveal animation="fade-up" duration={800} threshold={0.1}>

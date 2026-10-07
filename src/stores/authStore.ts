@@ -95,9 +95,23 @@ export const useAuthStore = create<AuthState>((set) => ({
       localStorage.removeItem('dropoflife_token');
       localStorage.removeItem('dropoflife_refresh_token');
       localStorage.removeItem('dropoflife_user');
-      document.cookie = 'dropoflife_token=; path=/; max-age=0; SameSite=Lax';
-      document.cookie = 'dropoflife_refresh_token=; path=/; max-age=0; SameSite=Lax';
-      document.cookie = 'dropoflife_role=; path=/; max-age=0; SameSite=Lax';
+      localStorage.removeItem('dropoflife_role');
+      sessionStorage.clear();
+
+      // Clear all possible auth cookies on root path
+      const expiredSuffix = '=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+      document.cookie = `dropoflife_token${expiredSuffix}`;
+      document.cookie = `dropoflife_refresh_token${expiredSuffix}`;
+      document.cookie = `dropoflife_role${expiredSuffix}`;
+      document.cookie = `accessToken${expiredSuffix}`;
+      document.cookie = `token${expiredSuffix}`;
+      document.cookie = `refreshToken${expiredSuffix}`;
+
+      // Notify backend if available
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5050/api/v1';
+        fetch(`${apiUrl}/auth/logout`, { method: 'POST', credentials: 'include' }).catch(() => {});
+      } catch (e) {}
     }
     set({
       user: null,

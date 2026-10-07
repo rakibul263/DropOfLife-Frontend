@@ -6,16 +6,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('dropoflife_token')?.value;
   const role = request.cookies.get('dropoflife_role')?.value;
 
-  const isAuthRoute =
-    pathname.startsWith('/login') || pathname.startsWith('/register');
   const isDashboardRoute = pathname.startsWith('/dashboard');
-
-  // If already authenticated and visiting login/register, redirect to dashboard
-  if (isAuthRoute && token && role) {
-    return NextResponse.redirect(
-      new URL(`/dashboard/${role}`, request.url)
-    );
-  }
 
   // If attempting to access /dashboard/hospital directly, route to /dashboard/provider
   if (pathname.startsWith('/dashboard/hospital')) {
@@ -46,5 +37,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/login', '/register'],
+  matcher: ['/dashboard/:path*'],
 };

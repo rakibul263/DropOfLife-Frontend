@@ -91,15 +91,16 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full transition-all duration-300 pt-2 sm:pt-3 px-2 sm:px-6 flex flex-col items-center">
-      {/* Liquid Glass Navigation Shell */}
-      <div
-        className={`w-full max-w-[1600px] relative rounded-2xl sm:rounded-3xl transition-all duration-300 ${
-          scrolled
-            ? 'liquid-glass-scrolled py-1 shadow-2xl shadow-black/40 ring-1 ring-white/15'
-            : 'liquid-glass py-1.5 shadow-xl shadow-black/25 ring-1 ring-white/10'
-        }`}
-      >
+    <>
+      <header className="fixed top-0 inset-x-0 z-50 w-full transition-all duration-300 pt-2 sm:pt-3 px-2 sm:px-6 flex flex-col items-center">
+        {/* Liquid Glass Navigation Shell */}
+        <div
+          className={`w-full max-w-[1600px] relative rounded-2xl sm:rounded-3xl transition-all duration-300 ${
+            scrolled
+              ? 'liquid-glass-scrolled py-1 shadow-2xl shadow-black/40 ring-1 ring-white/15'
+              : 'liquid-glass py-1.5 shadow-xl shadow-black/25 ring-1 ring-white/10'
+          }`}
+        >
         {/* Top Edge Specular Highlight Line (Prismatic Glass Rim) */}
         <div className="pointer-events-none absolute inset-x-6 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/25 to-transparent rounded-full" />
 
@@ -420,5 +421,8 @@ export const Navbar: React.FC = () => {
       {/* Notification Panel (Dropdown from Navbar Bell) */}
       {isPanelOpen && <NotificationPanel />}
     </header>
+    {/* Layout Spacer so page content flows naturally below the fixed navbar */}
+    <div className="h-18 sm:h-20 w-full shrink-0" aria-hidden="true" />
+  </>
   );
 };

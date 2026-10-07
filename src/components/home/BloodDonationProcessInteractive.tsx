@@ -11,6 +11,8 @@ import {
   FlaskConical,
   Award,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useLanguageStore } from '@/stores/languageStore';
 import { RealisticBloodBag } from '@/components/blood/RealisticBloodBag';
@@ -275,31 +277,35 @@ export function BloodDonationProcessInteractive() {
 
   const currentStep = STEPS[activeStepIndex];
 
-  // Pin detection and scroll progress tracker
+  // Pin detection and scroll progress tracker with fixed navbar offset
   useEffect(() => {
     let ticking = false;
+
+    const updateStepFromScroll = () => {
+      if (!trackRef.current) return;
+      const rect = trackRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const stickyNavbarOffset = 90; // offset so card remains below fixed navbar
+
+      const totalScrollable = rect.height - viewportHeight;
+      if (totalScrollable > 0) {
+        const scrolled = -(rect.top - stickyNavbarOffset);
+        const progress = Math.min(1, Math.max(0, scrolled / totalScrollable));
+        setScrollProgress(progress);
+
+        // Divide scroll distance evenly among the 7 steps
+        const stepIndex = Math.min(
+          STEPS.length - 1,
+          Math.max(0, Math.floor(progress * STEPS.length))
+        );
+        setActiveStepIndex(stepIndex);
+      }
+    };
 
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          if (!trackRef.current) {
-            ticking = false;
-            return;
-          }
-          const rect = trackRef.current.getBoundingClientRect();
-          const totalScrollable = rect.height - window.innerHeight;
-          if (totalScrollable > 0) {
-            const scrolled = -rect.top;
-            const progress = Math.min(1, Math.max(0, scrolled / totalScrollable));
-            setScrollProgress(progress);
-
-            // Divide scroll distance evenly among the 7 steps
-            const stepIndex = Math.min(
-              STEPS.length - 1,
-              Math.max(0, Math.floor(progress * STEPS.length))
-            );
-            setActiveStepIndex(stepIndex);
-          }
+          updateStepFromScroll();
           ticking = false;
         });
         ticking = true;
@@ -307,18 +313,49 @@ export function BloodDonationProcessInteractive() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    const lenis = (window as any).__lenis;
+    if (lenis) {
+      lenis.on('scroll', handleScroll);
+    }
+    updateStepFromScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (lenis) {
+        lenis.off('scroll', handleScroll);
+      }
     };
   }, []);
 
+  const handleStepJump = (idx: number) => {
+    setActiveStepIndex(idx);
+    if (!trackRef.current) return;
+    const rect = trackRef.current.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const totalScrollable = rect.height - window.innerHeight;
+    if (totalScrollable > 0) {
+      const targetScroll = rect.top + scrollTop - 90 + (idx / STEPS.length) * totalScrollable;
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (activeStepIndex > 0) {
+      handleStepJump(activeStepIndex - 1);
+    }
+  };
+
+  const handleNextStep = () => {
+    if (activeStepIndex < STEPS.length - 1) {
+      handleStepJump(activeStepIndex + 1);
+    }
+  };
+
   return (
-    /* Outer Scroll Runway: Generous height (380vh) so user naturally scrolls through the 7 steps */
-    <div ref={trackRef} className="relative h-[380vh] w-full">
-      {/* Sticky Viewport Container: Pinned to the screen, fits within a single viewport */}
-      <div className="sticky top-0 h-screen max-h-screen w-full flex flex-col justify-between py-4 sm:py-6 px-4 sm:px-8 lg:px-12 bg-zinc-950 border border-zinc-800/90 rounded-3xl shadow-[0_25px_70px_-15px_rgba(0,0,0,0.95)] overflow-hidden ring-1 ring-white/10 select-none">
+    /* Outer Scroll Runway: Generous height (320vh) so user naturally scrolls through the 7 steps */
+    <div ref={trackRef} className="relative h-[320vh] w-full">
+      {/* Sticky Viewport Container: Pinned below the fixed navbar */}
+      <div className="sticky top-20 sm:top-24 h-[calc(100vh-5.5rem)] sm:h-[calc(100vh-6.5rem)] max-h-[880px] w-full flex flex-col justify-between py-3.5 sm:py-5 px-3.5 sm:px-8 lg:px-10 bg-zinc-950/95 backdrop-blur-2xl border border-zinc-800/90 rounded-3xl shadow-[0_25px_70px_-15px_rgba(0,0,0,0.95)] overflow-hidden ring-1 ring-white/10 select-none">
         {/* Background Ambient Glows */}
         <div className="absolute top-0 right-0 w-[450px] h-[450px] rounded-full bg-rose-600/10 blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[450px] h-[450px] rounded-full bg-red-700/10 blur-[130px] pointer-events-none" />
@@ -493,6 +530,68 @@ export function BloodDonationProcessInteractive() {
                 </p>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* 3. BOTTOM CONTROLS & STEP RUNWAY INDICATORS */}
+        {/* ======================================================== */}
+        <div className="w-full pt-2.5 sm:pt-3 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 relative z-10 shrink-0">
+          {/* Progress bar line */}
+          <div className="w-full sm:w-1/3 flex flex-col gap-1">
+            <div className="flex justify-between items-center text-[10px] text-zinc-400 font-mono">
+              <span>{language === 'bn' ? 'সম্পূর্ণ প্রক্রিয়া অগ্রগতি' : 'Procedure Progress'}</span>
+              <span className="font-bold text-rose-400">{Math.round(((activeStepIndex + 1) / STEPS.length) * 100)}%</span>
+            </div>
+            <div className="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800">
+              <div
+                className="h-full bg-gradient-to-r from-rose-600 to-red-500 transition-all duration-300 rounded-full"
+                style={{ width: `${((activeStepIndex + 1) / STEPS.length) * 100}%` }}
+              />
+            </div>
+          </div>
+
+          {/* 7 Interactive Step Pills */}
+          <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto max-w-full py-1">
+            {STEPS.map((step, idx) => (
+              <button
+                key={step.id}
+                type="button"
+                onClick={() => handleStepJump(idx)}
+                className={`px-2 sm:px-2.5 py-1 rounded-xl text-xs font-black transition-all duration-200 cursor-pointer ${
+                  activeStepIndex === idx
+                    ? 'bg-rose-600 text-white shadow-lg shadow-rose-900/50 scale-105 ring-1 ring-white/30'
+                    : idx < activeStepIndex
+                    ? 'bg-zinc-900 text-rose-400 hover:bg-zinc-800 border border-rose-900/30'
+                    : 'bg-zinc-900/70 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 border border-zinc-800/60'
+                }`}
+                title={language === 'bn' ? step.titleBn : step.titleEn}
+              >
+                {language === 'bn' ? step.stepNumberBn : step.stepNumberEn}
+              </button>
+            ))}
+          </div>
+
+          {/* Prev / Next Step Buttons */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={handlePrevStep}
+              disabled={activeStepIndex === 0}
+              className="px-2.5 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 disabled:opacity-40 disabled:cursor-not-allowed border border-zinc-800 text-zinc-300 hover:text-white text-xs font-bold flex items-center gap-1 transition-all cursor-pointer"
+            >
+              <ChevronLeft className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">{language === 'bn' ? 'পূর্ববর্তী' : 'Prev'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleNextStep}
+              disabled={activeStepIndex === STEPS.length - 1}
+              className="px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold flex items-center gap-1 shadow-md shadow-rose-950/60 transition-all cursor-pointer"
+            >
+              <span className="hidden sm:inline">{language === 'bn' ? 'পরবর্তী' : 'Next'}</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </div>

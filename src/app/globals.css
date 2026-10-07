@@ -24,7 +24,7 @@
 
 html {
   color-scheme: dark;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
 }
 
@@ -32,7 +32,7 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: 'Hind Siliguri', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
   letter-spacing: 0;
   line-height: 1.6;
