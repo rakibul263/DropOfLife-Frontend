@@ -252,7 +252,7 @@ export default function DonorsPage() {
 
   return (
     <div className="min-h-screen py-8 sm:py-10">
-      <div className="w-[94%] max-w-[1600px] mx-auto px-2 sm:px-4 space-y-7">
+      <div className="w-full max-w-[96%] sm:max-w-[92%] lg:max-w-[90%] xl:max-w-[1600px] mx-auto px-2 sm:px-4 space-y-7">
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-zinc-800 pb-5">
           <div className="space-y-1.5">

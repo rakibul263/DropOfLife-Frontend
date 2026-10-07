@@ -85,7 +85,7 @@ export function EmergencyFilterBar({
         {/* Action Button */}
         <Button
           onClick={onOpenCreateModal}
-          className="bg-rose-600 hover:bg-rose-500 text-white font-extrabold shadow-xl shadow-rose-950/60 h-11 px-5 rounded-xl shrink-0 cursor-pointer"
+          className="w-full sm:w-auto bg-rose-600 hover:bg-rose-500 text-white font-extrabold shadow-xl shadow-rose-950/60 h-11 px-5 rounded-xl shrink-0 cursor-pointer justify-center"
         >
           <PlusCircle className="w-4 h-4 mr-2" />
           {t.broadcastBtn}

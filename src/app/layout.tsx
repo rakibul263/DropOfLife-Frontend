@@ -8,6 +8,7 @@ import { TermsModal } from '@/components/shared/TermsModal';
 import { NotificationBell } from '@/components/shared/NotificationBell';
 import { LiquidToastContainer } from '@/components/shared/LiquidToast';
 import { ScrollAnimationProvider } from '@/providers/ScrollAnimationProvider';
+import { ChatBot } from '@/components/shared/ChatBot';
 
 export const metadata: Metadata = {
   title: 'DropOfLife — জীবনের এক ফোঁটা | Emergency Blood Donation Platform',
@@ -35,10 +36,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+    <html lang="bn" className="dark" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        />
       </head>
       <body
         suppressHydrationWarning
@@ -53,6 +60,7 @@ export default function RootLayout({
             <Footer />
             <NotificationBell />
             <LiquidToastContainer />
+            <ChatBot />
           </ScrollAnimationProvider>
         </QueryProvider>
       </body>

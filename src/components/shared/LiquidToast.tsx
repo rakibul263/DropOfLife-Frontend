@@ -65,7 +65,7 @@ function ToastCard({ toastItem }: { toastItem: ToastItem }) {
   return (
     <div
       role="alert"
-      className={`relative w-[340px] sm:w-[390px] rounded-2xl bg-zinc-950/90 border ${config.border} p-4 backdrop-blur-2xl text-white shadow-2xl transition-all duration-300 animate-in slide-in-from-top-4 fade-in overflow-hidden select-none group`}
+      className={`relative w-[calc(100vw-32px)] sm:w-[390px] max-w-[400px] rounded-2xl bg-zinc-950/90 border ${config.border} p-4 backdrop-blur-2xl text-white shadow-2xl transition-all duration-300 animate-in slide-in-from-top-4 fade-in overflow-hidden select-none group`}
     >
       {/* Specular Top Sheen */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />

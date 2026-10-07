@@ -64,10 +64,10 @@ export const HospitalAlliance: React.FC = () => {
                       <Building2 className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="font-black text-lg sm:text-xl text-white leading-snug line-clamp-1">
+                      <h3 className="font-black text-lg sm:text-xl text-white leading-snug line-clamp-2 min-h-[32px]">
                         {camp.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-zinc-200 font-medium mt-0.5 line-clamp-1">
+                      <p className="text-xs sm:text-sm text-zinc-200 font-medium mt-0.5 line-clamp-2">
                         {t.institution} <strong className="text-white font-bold">{camp.providerName}</strong>
                       </p>
                     </div>
@@ -98,13 +98,13 @@ export const HospitalAlliance: React.FC = () => {
                 </div>
               </div>
 
-              <div className="pt-4 flex items-center justify-between border-t border-zinc-800/80 mt-auto shrink-0">
+              <div className="pt-4 flex flex-col min-[380px]:flex-row min-[380px]:items-center justify-between border-t border-zinc-800/80 mt-auto shrink-0 gap-2">
                 <span className="text-xs sm:text-sm text-zinc-300 font-semibold">{t.helpline}</span>
                 <a
                   href={`tel:${camp.contactPhone || '029351969'}`}
-                  className="px-4 py-2 rounded-xl bg-zinc-850 hover:bg-zinc-800 border border-zinc-700 text-sm font-bold text-white hover:text-rose-400 flex items-center gap-2 font-mono transition-all shadow-md"
+                  className="px-4 py-2 rounded-xl bg-zinc-850 hover:bg-zinc-800 border border-zinc-700 text-xs sm:text-sm font-bold text-white hover:text-rose-400 flex items-center justify-center gap-2 font-mono transition-all shadow-md w-full min-[380px]:w-auto"
                 >
-                  <PhoneCall className="w-4 h-4 text-rose-500" />
+                  <PhoneCall className="w-4 h-4 text-rose-500 shrink-0" />
                   <span>{camp.contactPhone || '02-9351969'}</span>
                 </a>
               </div>

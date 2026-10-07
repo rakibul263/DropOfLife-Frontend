@@ -62,7 +62,12 @@ export const Modal: React.FC<ModalProps> = ({
             <X className="h-5 w-5" />
           </button>
         </div>
-        <div className="p-6 max-h-[85vh] overflow-y-auto">{children}</div>
+        <div
+          data-lenis-prevent="true"
+          className="p-4 sm:p-6 max-h-[82vh] overflow-y-auto overscroll-contain chat-custom-scrollbar"
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

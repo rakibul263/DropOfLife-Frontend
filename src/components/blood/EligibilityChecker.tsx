@@ -39,7 +39,7 @@ export const EligibilityChecker: React.FC = () => {
   };
 
   return (
-    <Card variant="crimson" className="p-7 sm:p-10 lg:p-12 relative overflow-hidden shadow-2xl">
+    <Card variant="crimson" className="p-5 sm:p-10 lg:p-12 relative overflow-hidden shadow-2xl">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 pb-7 border-b border-zinc-800/80">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-widest">
@@ -73,11 +73,11 @@ export const EligibilityChecker: React.FC = () => {
         {/* Q1: Age */}
         <div className="p-6 rounded-2xl bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 ring-1 ring-white/[0.05] flex flex-col justify-between shadow-xl transition-all h-full">
           <div>
-            <div className="flex items-center gap-2.5 text-white font-extrabold text-sm sm:text-base mb-2 h-7">
+            <div className="flex items-center gap-2.5 text-white font-extrabold text-sm sm:text-base mb-2 min-h-[28px]">
               <Calendar className="w-4 h-4 text-rose-400 shrink-0" />
               <span>{t.q1Title}</span>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-200 mb-5 leading-relaxed font-normal min-h-[48px] line-clamp-2">
+            <p className="text-xs sm:text-sm text-zinc-200 mb-5 leading-relaxed font-normal min-h-[56px] line-clamp-3">
               {t.q1Desc}
             </p>
           </div>
@@ -108,11 +108,11 @@ export const EligibilityChecker: React.FC = () => {
         {/* Q2: Weight */}
         <div className="p-6 rounded-2xl bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 ring-1 ring-white/[0.05] flex flex-col justify-between shadow-xl transition-all h-full">
           <div>
-            <div className="flex items-center gap-2.5 text-white font-extrabold text-sm sm:text-base mb-2 h-7">
+            <div className="flex items-center gap-2.5 text-white font-extrabold text-sm sm:text-base mb-2 min-h-[28px]">
               <Scale className="w-4 h-4 text-sky-400 shrink-0" />
               <span>{t.q2Title}</span>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-200 mb-5 leading-relaxed font-normal min-h-[48px] line-clamp-2">
+            <p className="text-xs sm:text-sm text-zinc-200 mb-5 leading-relaxed font-normal min-h-[56px] line-clamp-3">
               {t.q2Desc}
             </p>
           </div>
@@ -143,11 +143,11 @@ export const EligibilityChecker: React.FC = () => {
         {/* Q3: Time Interval */}
         <div className="p-6 rounded-2xl bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 ring-1 ring-white/[0.05] flex flex-col justify-between shadow-xl transition-all h-full">
           <div>
-            <div className="flex items-center gap-2.5 text-white font-extrabold text-sm sm:text-base mb-2 h-7">
+            <div className="flex items-center gap-2.5 text-white font-extrabold text-sm sm:text-base mb-2 min-h-[28px]">
               <Heart className="w-4 h-4 text-amber-400 shrink-0" />
               <span>{t.q3Title}</span>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-200 mb-5 leading-relaxed font-normal min-h-[48px] line-clamp-2">
+            <p className="text-xs sm:text-sm text-zinc-200 mb-5 leading-relaxed font-normal min-h-[56px] line-clamp-3">
               {t.q3Desc}
             </p>
           </div>
@@ -178,11 +178,11 @@ export const EligibilityChecker: React.FC = () => {
         {/* Q4: Well-being */}
         <div className="p-6 rounded-2xl bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 ring-1 ring-white/[0.05] flex flex-col justify-between shadow-xl transition-all h-full">
           <div>
-            <div className="flex items-center gap-2.5 text-white font-extrabold text-sm sm:text-base mb-2 h-7">
+            <div className="flex items-center gap-2.5 text-white font-extrabold text-sm sm:text-base mb-2 min-h-[28px]">
               <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>{t.q4Title}</span>
             </div>
-            <p className="text-xs sm:text-sm text-zinc-200 mb-5 leading-relaxed font-normal min-h-[48px] line-clamp-2">
+            <p className="text-xs sm:text-sm text-zinc-200 mb-5 leading-relaxed font-normal min-h-[56px] line-clamp-3">
               {t.q4Desc}
             </p>
           </div>
@@ -229,8 +229,8 @@ export const EligibilityChecker: React.FC = () => {
                   </p>
                 </div>
               </div>
-              <Link href="/emergency-requests" className="shrink-0">
-                <Button variant="primary" size="lg" className="font-extrabold gap-2 shadow-xl shadow-emerald-950/60 px-6 py-3">
+              <Link href="/emergency-requests" className="w-full sm:w-auto shrink-0">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto font-extrabold gap-2 shadow-xl shadow-emerald-950/60 px-6 py-3 justify-center">
                   <span>{t.viewUrgentNeedsBtn}</span>
                   <ArrowRight className="w-5 h-5" />
                 </Button>

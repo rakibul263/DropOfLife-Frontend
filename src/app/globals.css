@@ -23,17 +23,38 @@
 }
 
 html {
-  scroll-behavior: smooth;
   color-scheme: dark;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Hind Siliguri', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
-  letter-spacing: -0.01em;
+  max-width: 100vw;
+  letter-spacing: 0;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Bengali Typography Protection: Prevent negative letter-spacing and matra clipping */
+:lang(bn),
+[lang="bn"],
+.font-bengali {
+  font-family: 'Hind Siliguri', system-ui, sans-serif !important;
+  letter-spacing: 0px !important;
+  line-height: 1.6 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: normal !important;
+  line-height: 1.35;
+  text-rendering: optimizeLegibility;
 }
 
 /* Custom Sleek Scrollbar */
@@ -53,6 +74,31 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
+  background: #e11d48;
+}
+
+/* Chat container smooth scrollbar */
+.chat-custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(225, 29, 72, 0.45) rgba(24, 24, 27, 0.5);
+  overscroll-behavior: contain;
+}
+
+.chat-custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat-custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(24, 24, 27, 0.5);
+  border-radius: 9999px;
+}
+
+.chat-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(225, 29, 72, 0.45);
+  border-radius: 9999px;
+}
+
+.chat-custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #e11d48;
 }
 

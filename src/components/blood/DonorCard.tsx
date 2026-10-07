@@ -193,7 +193,7 @@ export const DonorCard: React.FC<DonorCardProps> = ({
           </div>
 
           {/* Donor Name & Location */}
-          <div className="space-y-1 pt-1 h-[52px] shrink-0">
+          <div className="space-y-1 pt-1 min-h-[52px] shrink-0">
             <div className="flex items-center gap-2">
               <h3 className="font-black text-lg sm:text-xl text-white tracking-tight line-clamp-1 group-hover:text-rose-300 transition-colors">
                 {donor.name}
@@ -216,7 +216,7 @@ export const DonorCard: React.FC<DonorCardProps> = ({
           </div>
 
           {/* Donor Personal Note / Lifesaver Statement (Fixed Uniform Height) */}
-          <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 relative text-xs leading-relaxed text-zinc-300 backdrop-blur-md h-[60px] flex items-center shrink-0">
+          <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 relative text-xs leading-relaxed text-zinc-300 backdrop-blur-md min-h-[60px] flex items-center shrink-0">
             <Quote className="w-3.5 h-3.5 text-rose-400 absolute top-2.5 right-2.5 opacity-40 shrink-0" />
             <p className="line-clamp-2 pr-4 italic">
               "{donor.note || (language === 'bn' ? 'জরুরি প্রয়োজনে নিকটবর্তী যে কোনো রক্তগ্রহীতাকে সহায়তা করতে প্রস্তুত।' : 'Available for urgent emergency transfusion in nearby hospitals.')}"
@@ -258,7 +258,7 @@ export const DonorCard: React.FC<DonorCardProps> = ({
                   <Calendar className="w-3.5 h-3.5 text-zinc-500" />
                   <span>সর্বশেষ রক্তদান:</span>
                 </span>
-                <span className="font-mono text-zinc-200 font-semibold line-clamp-1 text-right">
+                <span className="font-mono text-zinc-200 font-semibold text-right text-[11px]">
                   {medStatus.displayTextBn}
                 </span>
               </div>
@@ -318,7 +318,7 @@ export const DonorCard: React.FC<DonorCardProps> = ({
 
         {/* Action Buttons (Strictly pinned to bottom) */}
         <div className="space-y-2 pt-3 border-t border-white/10 mt-auto shrink-0">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col min-[380px]:flex-row items-stretch min-[380px]:items-center gap-2">
             {donor.phone ? (
               <a
                 href={`tel:${donor.phone}`}

@@ -113,7 +113,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = ({ stats: propStats }
               >
                 <div className="flex-1 flex flex-col justify-between">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs sm:text-sm font-bold text-zinc-200 uppercase tracking-wider line-clamp-1">
+                    <span className="text-xs sm:text-sm font-bold text-zinc-200 uppercase tracking-wider min-h-[36px] flex items-center">
                       {item.title}
                     </span>
                     <div className={`p-3 rounded-2xl border ${item.bg} shrink-0`}>
@@ -132,7 +132,7 @@ export const StatsOverview: React.FC<StatsOverviewProps> = ({ stats: propStats }
                   </div>
                 </div>
 
-                <p className="text-xs sm:text-sm text-zinc-300 font-normal leading-relaxed pt-3 border-t border-zinc-800/80 min-h-[44px] line-clamp-2 mt-auto shrink-0">
+                <p className="text-xs sm:text-sm text-zinc-300 font-normal leading-relaxed pt-3 border-t border-zinc-800/80 min-h-[54px] line-clamp-3 mt-auto shrink-0">
                   {item.description}
                 </p>
               </Card>

@@ -286,7 +286,7 @@ export default function DonorDashboardPage() {
       <div className="pointer-events-none fixed -bottom-40 -right-40 w-[550px] h-[550px] bg-red-600/10 rounded-full blur-[140px] z-0" />
 
       {/* Container */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-6">
+      <div className="relative z-10 max-w-4xl mx-auto px-3 sm:px-6 pt-6 sm:pt-8 space-y-6">
         {/* Top Control Bar: Back to Home & Logout */}
         <div className="flex items-center justify-between gap-3 p-3 rounded-2xl bg-zinc-900/80 border border-white/10 backdrop-blur-xl shadow-lg">
           <Link
@@ -428,11 +428,16 @@ export default function DonorDashboardPage() {
                 : 'text-zinc-400 hover:text-white hover:bg-white/[0.05]'
             }`}
           >
-            <BellRing className="w-4 h-4" />
+            <BellRing className="w-4 h-4 shrink-0" />
             <span>
-              {language === 'bn'
-                ? 'আমার কাছে আসা রক্তের অনুরোধসমূহ'
-                : 'Direct Blood Requests'}
+              <span className="hidden sm:inline">
+                {language === 'bn'
+                  ? 'আমার কাছে আসা রক্তের অনুরোধসমূহ'
+                  : 'Direct Blood Requests'}
+              </span>
+              <span className="sm:hidden">
+                {language === 'bn' ? 'রক্তের অনুরোধ' : 'Requests'}
+              </span>
             </span>
             {targetedRequests.length > 0 && (
               <span className="px-2 py-0.5 rounded-full text-[11px] font-black bg-white text-rose-700 shadow-sm animate-pulse">
@@ -444,15 +449,20 @@ export default function DonorDashboardPage() {
           <button
             type="button"
             onClick={() => setActiveTab('profile')}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
+            className={`flex-1 flex items-center justify-center gap-2 py-3 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-extrabold transition-all cursor-pointer ${
               activeTab === 'profile'
                 ? 'bg-rose-600 text-white shadow-lg shadow-rose-950/60'
                 : 'text-zinc-400 hover:text-white hover:bg-white/[0.05]'
             }`}
           >
-            <Edit3 className="w-4 h-4" />
+            <Edit3 className="w-4 h-4 shrink-0" />
             <span>
-              {language === 'bn' ? 'প্রোফাইল বিবরণ ও সেটিংস' : 'Profile Settings'}
+              <span className="hidden sm:inline">
+                {language === 'bn' ? 'প্রোফাইল বিবরণ ও সেটিংস' : 'Profile Settings'}
+              </span>
+              <span className="sm:hidden">
+                {language === 'bn' ? 'প্রোফাইল' : 'Profile'}
+              </span>
             </span>
           </button>
         </div>

@@ -9,16 +9,18 @@ interface ScrollAnimationProviderProps {
 
 export const ScrollAnimationProvider: React.FC<ScrollAnimationProviderProps> = ({ children }) => {
   useEffect(() => {
-    // 1. Initialize Lenis Smooth Momentum Scrolling for velvety smooth user experience
+    // 1. Initialize Lenis Smooth Momentum Scrolling with instant zero-lag response
     const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential deceleration
+      duration: 0.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.95,
-      touchMultiplier: 1.8,
+      wheelMultiplier: 1.15,
+      touchMultiplier: 1.5,
+      infinite: false,
     });
+    (window as any).__lenis = lenis;
 
     let animationFrameId: number;
     function raf(time: number) {

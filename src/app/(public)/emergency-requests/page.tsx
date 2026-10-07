@@ -226,8 +226,8 @@ export default function EmergencyRequestsPage() {
   const visibleRequests = filteredRequests.slice(0, visibleCount);
 
   return (
-    <div className="min-h-screen py-10">
-      <div className="w-full max-w-[92%] sm:max-w-[85%] lg:max-w-[80%] mx-auto px-4 sm:px-6 space-y-8">
+    <div className="min-h-screen py-8 sm:py-10">
+      <div className="w-full max-w-[96%] sm:max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] mx-auto px-2 sm:px-6 space-y-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-zinc-800 pb-6">
           <div className="space-y-2">

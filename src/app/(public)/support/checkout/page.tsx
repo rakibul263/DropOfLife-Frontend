@@ -399,7 +399,7 @@ function StripeCheckoutContent() {
               <Card
                 variant="liquid"
                 hoverEffect={false}
-                className="p-6 sm:p-8 border border-white/20 bg-gradient-to-br from-white/[0.08] via-zinc-900/80 to-zinc-950/95 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.95)] backdrop-blur-3xl relative overflow-hidden"
+                className="p-4 sm:p-8 border border-white/20 bg-gradient-to-br from-white/[0.08] via-zinc-900/80 to-zinc-950/95 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.95)] backdrop-blur-3xl relative overflow-hidden"
               >
                 {/* Subtle sheen highlight */}
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />

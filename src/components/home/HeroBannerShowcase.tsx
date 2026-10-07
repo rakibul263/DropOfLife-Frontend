@@ -165,7 +165,7 @@ export function HeroBannerShowcase() {
           </div>
 
           {/* Interactive Mode Pills */}
-          <div className="flex items-center p-1 rounded-xl bg-zinc-900/90 border border-zinc-700/80 shrink-0 shadow-inner">
+          <div className="flex items-center p-1 rounded-xl bg-zinc-900/90 border border-zinc-700/80 shrink-0 shadow-inner overflow-x-auto max-w-full">
             <button
               onClick={() => setActiveTab('dispatches')}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
@@ -219,7 +219,7 @@ export function HeroBannerShowcase() {
                             <p className="text-xs font-bold text-zinc-400 uppercase tracking-wider">
                               {language === 'bn' ? node.regionBn : node.regionEn}
                             </p>
-                            <h4 className="text-sm font-extrabold text-white group-hover:text-rose-400 transition-colors line-clamp-1">
+                            <h4 className="text-sm font-extrabold text-white group-hover:text-rose-400 transition-colors line-clamp-2 leading-snug">
                               {language === 'bn' ? node.facilityBn : node.facilityEn}
                             </h4>
                           </div>
@@ -230,7 +230,7 @@ export function HeroBannerShowcase() {
                         </span>
                       </div>
 
-                      <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-medium line-clamp-2 min-h-[40px]">
+                      <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-medium line-clamp-3 min-h-[48px]">
                         {language === 'bn' ? node.detailsBn : node.detailsEn}
                       </p>
                     </div>
@@ -260,7 +260,7 @@ export function HeroBannerShowcase() {
           )}
 
           {activeTab === 'nodes' && (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 items-stretch">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 items-stretch">
               {REGIONAL_NODES.map((div) => (
                 <div
                   key={div.nameEn}
@@ -305,7 +305,7 @@ export function HeroBannerShowcase() {
                   </div>
                   <div className="text-3xl font-black text-white mb-1">{t.avgResponseVal}</div>
                 </div>
-                <p className="text-xs text-zinc-300 leading-relaxed font-normal min-h-[44px] line-clamp-2 mt-2">
+                <p className="text-xs text-zinc-300 leading-relaxed font-normal min-h-[56px] line-clamp-3 mt-2">
                   {t.avgResponseDesc}
                 </p>
               </div>
@@ -318,7 +318,7 @@ export function HeroBannerShowcase() {
                   </div>
                   <div className="text-3xl font-black text-white mb-1">{t.coldChainVal}</div>
                 </div>
-                <p className="text-xs text-zinc-300 leading-relaxed font-normal min-h-[44px] line-clamp-2 mt-2">
+                <p className="text-xs text-zinc-300 leading-relaxed font-normal min-h-[56px] line-clamp-3 mt-2">
                   {t.coldChainDesc}
                 </p>
               </div>
@@ -331,7 +331,7 @@ export function HeroBannerShowcase() {
                   </div>
                   <div className="text-3xl font-black text-white mb-1">{t.safetyVal}</div>
                 </div>
-                <p className="text-xs text-zinc-300 leading-relaxed font-normal min-h-[44px] line-clamp-2 mt-2">
+                <p className="text-xs text-zinc-300 leading-relaxed font-normal min-h-[56px] line-clamp-3 mt-2">
                   {t.safetyDesc}
                 </p>
               </div>
@@ -360,7 +360,7 @@ export function HeroBannerShowcase() {
         </div>
 
         {/* Live Floating Telemetry Badges */}
-        <div className="px-5 sm:px-8 py-4 bg-zinc-950 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-4">
+        <div className="px-4 sm:px-8 py-4 bg-zinc-950 border-t border-zinc-800 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center font-black text-sm shrink-0">
               <Radio className="w-4 h-4 text-rose-400 animate-pulse" />
@@ -375,7 +375,7 @@ export function HeroBannerShowcase() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full lg:w-auto justify-between sm:justify-start lg:justify-end">
             <Link href="/donors">
               <Button
                 variant="outline"

@@ -53,7 +53,7 @@ export function SupportPurposeSelector({
               <p className="text-xs text-rose-300 font-medium mt-0.5">{t.courierSub}</p>
             </div>
           </div>
-          <p className="relative z-10 text-sm text-zinc-200 mt-4 leading-relaxed font-normal min-h-[50px] line-clamp-2">
+          <p className="relative z-10 text-sm text-zinc-200 mt-4 leading-relaxed font-normal min-h-[64px] line-clamp-3">
             {t.courierDesc}
           </p>
         </div>
@@ -86,7 +86,7 @@ export function SupportPurposeSelector({
               <p className="text-xs text-rose-300 font-medium mt-0.5">{t.subsidySub}</p>
             </div>
           </div>
-          <p className="relative z-10 text-sm text-zinc-200 mt-4 leading-relaxed font-normal min-h-[50px] line-clamp-2">
+          <p className="relative z-10 text-sm text-zinc-200 mt-4 leading-relaxed font-normal min-h-[64px] line-clamp-3">
             {t.subsidyDesc}
           </p>
         </div>

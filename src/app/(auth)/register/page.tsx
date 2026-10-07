@@ -285,7 +285,7 @@ function RegisterContent() {
       {/* Main Wide Liquid Glass Card Shell for Laptops & Desktops */}
       <div className="w-full max-w-4xl relative z-10 my-2">
         <div
-          className="border border-white/20 bg-gradient-to-b from-white/[0.10] via-zinc-950/60 to-zinc-950/80 p-6 sm:p-8 lg:p-10 shadow-[0_25px_80px_-15px_rgba(0,0,0,0.85),0_0_60px_rgba(225,29,72,0.18),inset_0_1px_1px_rgba(255,255,255,0.35),inset_0_0_30px_rgba(255,255,255,0.02)] backdrop-blur-3xl rounded-3xl relative overflow-hidden ring-1 ring-white/15"
+          className="border border-white/20 bg-gradient-to-b from-white/[0.10] via-zinc-950/60 to-zinc-950/80 p-4 sm:p-8 lg:p-10 shadow-[0_25px_80px_-15px_rgba(0,0,0,0.85),0_0_60px_rgba(225,29,72,0.18),inset_0_1px_1px_rgba(255,255,255,0.35),inset_0_0_30px_rgba(255,255,255,0.02)] backdrop-blur-3xl rounded-3xl relative overflow-hidden ring-1 ring-white/15"
         >
           {/* Subtle top light sheen & liquid glow */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-white/50 to-transparent" />

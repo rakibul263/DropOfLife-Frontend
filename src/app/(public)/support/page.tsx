@@ -89,7 +89,7 @@ export default function SupportPage() {
       <div className="pointer-events-none absolute -top-40 -right-40 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl" />
       <div className="pointer-events-none absolute top-1/2 -left-40 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl" />
 
-      <div className="relative z-10 w-full max-w-[92%] sm:max-w-[85%] lg:max-w-[80%] mx-auto px-4 sm:px-6 space-y-10">
+      <div className="relative z-10 w-full max-w-[96%] sm:max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] mx-auto px-2 sm:px-6 space-y-8 sm:space-y-10">
         {/* Header */}
         <ScrollReveal animation="fade-up" duration={700}>
           <div className="text-center space-y-4 max-w-2xl mx-auto">
@@ -97,10 +97,10 @@ export default function SupportPage() {
               <Heart className="w-3.5 h-3.5 fill-current" />
               <span>{t.badge}</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            <h1 className="text-2xl min-[380px]:text-3xl sm:text-5xl font-black text-white tracking-tight">
               {t.title}
             </h1>
-            <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
+            <p className="text-zinc-300 text-xs sm:text-base leading-relaxed">
               {t.desc}
             </p>
           </div>
@@ -111,7 +111,7 @@ export default function SupportPage() {
           <Card
             variant="liquid"
             hoverEffect={false}
-            className="p-6 sm:p-10 border border-white/20 bg-gradient-to-br from-white/[0.08] via-zinc-900/65 to-zinc-950/90 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.9),0_0_50px_rgba(225,29,72,0.12)] space-y-8 backdrop-blur-3xl relative overflow-hidden ring-1 ring-white/10"
+            className="p-5 sm:p-10 border border-white/20 bg-gradient-to-br from-white/[0.08] via-zinc-900/65 to-zinc-950/90 shadow-[0_25px_70px_-15px_rgba(0,0,0,0.9),0_0_50px_rgba(225,29,72,0.12)] space-y-8 backdrop-blur-3xl relative overflow-hidden ring-1 ring-white/10"
           >
           {/* Ambient liquid light glow */}
           <div className="pointer-events-none absolute -top-32 -right-32 w-72 h-72 bg-rose-600/15 rounded-full blur-3xl" />

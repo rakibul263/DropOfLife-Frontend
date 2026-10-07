@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Lenis from 'lenis';
 import {
   Activity,
   Heart,
@@ -276,46 +275,42 @@ export function BloodDonationProcessInteractive() {
 
   const currentStep = STEPS[activeStepIndex];
 
-  // Initialize Lenis smooth scroll and pin detection
+  // Pin detection and scroll progress tracker
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-
-    let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+    let ticking = false;
 
     const handleScroll = () => {
-      if (!trackRef.current) return;
-      const rect = trackRef.current.getBoundingClientRect();
-      const totalScrollable = rect.height - window.innerHeight;
-      if (totalScrollable <= 0) return;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (!trackRef.current) {
+            ticking = false;
+            return;
+          }
+          const rect = trackRef.current.getBoundingClientRect();
+          const totalScrollable = rect.height - window.innerHeight;
+          if (totalScrollable > 0) {
+            const scrolled = -rect.top;
+            const progress = Math.min(1, Math.max(0, scrolled / totalScrollable));
+            setScrollProgress(progress);
 
-      const scrolled = -rect.top;
-      const progress = Math.min(1, Math.max(0, scrolled / totalScrollable));
-      setScrollProgress(progress);
-
-      // Divide scroll distance evenly among the 7 steps
-      const stepIndex = Math.min(
-        STEPS.length - 1,
-        Math.max(0, Math.floor(progress * STEPS.length))
-      );
-      setActiveStepIndex(stepIndex);
+            // Divide scroll distance evenly among the 7 steps
+            const stepIndex = Math.min(
+              STEPS.length - 1,
+              Math.max(0, Math.floor(progress * STEPS.length))
+            );
+            setActiveStepIndex(stepIndex);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    lenis.on('scroll', handleScroll);
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
-      cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', handleScroll);
-      lenis.destroy();
     };
   }, []);
 
@@ -380,21 +375,26 @@ export function BloodDonationProcessInteractive() {
         {/* ======================================================== */}
         {/* 2. MAIN 2-COLUMN VIEWPORT: Fits completely inside screen */}
         {/* ======================================================== */}
-        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center py-2 relative z-10 overflow-hidden">
+        <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center py-1 sm:py-2 relative z-10 overflow-hidden">
           {/* LEFT COLUMN: Animated Blood Bag with Drop of Life branding */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center h-full relative">
+          <div className="lg:col-span-5 hidden min-[480px]:flex flex-col items-center justify-center h-auto lg:h-full relative shrink-0">
             <RealisticBloodBag
               fillPercent={currentStep.bagFillPercent}
               volumeMl={currentStep.volumeMl}
               isRocking={currentStep.isAgitating}
               statusText={language === 'bn' ? currentStep.statusTagBn : currentStep.statusTagEn}
               language={language}
-              className="scale-[0.80] sm:scale-[0.88] lg:scale-[0.86] xl:scale-95 origin-center transition-transform duration-500"
+              className="scale-[0.60] sm:scale-[0.78] lg:scale-[0.86] xl:scale-95 origin-center transition-transform duration-500 -my-6 sm:my-0"
             />
           </div>
 
           {/* RIGHT COLUMN: Active Step Clinical Details Card */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-4 max-w-xl mx-auto lg:mx-0 w-full">
+          <div
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+            className="lg:col-span-7 flex flex-col justify-center space-y-3 sm:space-y-4 max-w-xl mx-auto lg:mx-0 w-full overflow-y-auto max-h-full chat-custom-scrollbar py-1"
+          >
             {/* Step Header Pill & Duration */}
             <div className="flex items-center justify-between gap-3">
               <span className="px-3 py-1 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 text-white font-black text-xs shadow-md shadow-rose-950/60 flex items-center gap-1.5">
@@ -417,7 +417,7 @@ export function BloodDonationProcessInteractive() {
             {/* Step Title */}
             <h3
               key={`title-${currentStep.id}`}
-              className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight animate-in fade-in slide-in-from-bottom-2 duration-300"
+              className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-normal leading-snug animate-in fade-in slide-in-from-bottom-2 duration-300"
             >
               {language === 'bn' ? currentStep.titleBn : currentStep.titleEn}
             </h3>

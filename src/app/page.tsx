@@ -29,7 +29,7 @@ export default function HomePage() {
     <div className="flex flex-col w-full pb-16">
       {/* 1. Hero Section with Compact Command Hub & Quick Blood Search */}
       <section className="relative overflow-hidden pt-8 pb-12 lg:pt-14 lg:pb-16 border-b border-zinc-800/60 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(225,29,72,0.14),rgba(9,9,11,0))]">
-        <div className="relative z-10 w-full max-w-[92%] sm:max-w-[85%] lg:max-w-[80%] mx-auto px-4 sm:px-6">
+        <div className="relative z-10 w-full max-w-[96%] sm:max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] mx-auto px-2 sm:px-6">
           <HeroSection
             selectedBlood={selectedQuickBlood}
             onSelectBlood={setSelectedQuickBlood}
@@ -39,8 +39,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Main Content Area: Harmonized 80% Max-Width Container */}
-      <div className="w-full max-w-[92%] sm:max-w-[85%] lg:max-w-[80%] mx-auto space-y-20 py-14 px-4 sm:px-6">
+      {/* Main Content Area: Harmonized Container */}
+      <div className="w-full max-w-[96%] sm:max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] mx-auto space-y-16 sm:space-y-20 py-10 sm:py-14 px-2 sm:px-6">
         {/* 2. Real-time Impact Telemetry Metrics */}
         <ScrollReveal animation="fade-up" duration={800} threshold={0.1}>
           <StatsOverview />

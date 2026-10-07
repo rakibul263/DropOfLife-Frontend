@@ -162,7 +162,8 @@ export const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-md bg-zinc-950/95 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-rose-950/40 text-zinc-100 overflow-hidden"
+        data-lenis-prevent="true"
+        className="relative w-full max-w-[calc(100vw-24px)] sm:max-w-md max-h-[90vh] overflow-y-auto overscroll-contain chat-custom-scrollbar bg-zinc-950/95 border border-zinc-800 rounded-3xl p-5 sm:p-8 shadow-2xl shadow-rose-950/40 text-zinc-100"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Subtle decorative glow */}

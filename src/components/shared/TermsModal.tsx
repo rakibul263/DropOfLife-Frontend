@@ -99,7 +99,8 @@ export function TermsModal() {
                 setHasScrolledToBottom(true);
               }
             }}
-            className="max-h-60 sm:max-h-72 overflow-y-auto space-y-3.5 pr-2 rounded-2xl bg-zinc-950/70 p-4 sm:p-5 border border-zinc-800 text-xs sm:text-sm text-zinc-300"
+            data-lenis-prevent="true"
+            className="max-h-60 sm:max-h-72 overflow-y-auto space-y-3.5 pr-2 rounded-2xl bg-zinc-950/70 p-4 sm:p-5 border border-zinc-800 text-xs sm:text-sm text-zinc-300 overscroll-contain chat-custom-scrollbar"
           >
             {language === 'bn' ? (
               <>

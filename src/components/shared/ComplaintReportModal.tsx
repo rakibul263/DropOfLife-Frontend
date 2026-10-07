@@ -81,7 +81,10 @@ export function ComplaintReportModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-lg bg-zinc-950/95 border border-white/20 p-6 sm:p-7 rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.95),0_0_50px_rgba(225,29,72,0.25)] backdrop-blur-3xl text-white">
+      <DialogContent
+        data-lenis-prevent="true"
+        className="w-[calc(100vw-24px)] sm:max-w-lg max-h-[90vh] overflow-y-auto chat-custom-scrollbar bg-zinc-950/95 border border-white/20 p-5 sm:p-7 rounded-3xl shadow-[0_25px_80px_rgba(0,0,0,0.95),0_0_50px_rgba(225,29,72,0.25)] backdrop-blur-3xl text-white"
+      >
         <DialogHeader className="border-b border-white/10 pb-3">
           <div className="flex items-center gap-2 mb-1">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" />

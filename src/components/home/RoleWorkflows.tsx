@@ -75,7 +75,7 @@ export function RoleWorkflows() {
               <Card
                 variant="default"
                 hoverEffect
-                className="p-7 sm:p-9 h-full flex flex-col justify-between group shadow-2xl transition-all duration-300 revealed-card-hover"
+                className="p-5 sm:p-8 lg:p-9 h-full flex flex-col justify-between group shadow-2xl transition-all duration-300 revealed-card-hover"
               >
                 <div className="space-y-6 flex-1 flex flex-col justify-between">
                   <div>
@@ -89,10 +89,10 @@ export function RoleWorkflows() {
                       <span className="text-xs font-bold text-zinc-300 uppercase tracking-widest">
                         {item.role}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-black text-white mt-1.5 group-hover:text-rose-400 transition-colors line-clamp-1">
+                      <h3 className="text-xl sm:text-2xl font-black text-white mt-1.5 group-hover:text-rose-400 transition-colors line-clamp-2 min-h-[56px] leading-snug">
                         {item.title}
                       </h3>
-                      <p className="text-sm sm:text-base text-zinc-200 mt-3 leading-relaxed font-normal min-h-[72px] line-clamp-3">
+                      <p className="text-sm sm:text-base text-zinc-200 mt-3 leading-relaxed font-normal min-h-[84px] line-clamp-4">
                         {item.description}
                       </p>
                     </div>

@@ -181,7 +181,7 @@ export function DonorFilterBar({
             </button>
           ))}
 
-          <span className="ml-auto text-xs sm:text-sm font-semibold text-zinc-300 shrink-0">
+          <span className="w-full sm:w-auto sm:ml-auto pt-2 sm:pt-0 text-xs sm:text-sm font-semibold text-zinc-300 flex items-center justify-end gap-1.5 border-t sm:border-t-0 border-zinc-800/60 mt-1 sm:mt-0">
             {t.foundLabel}{' '}
             <strong className="text-rose-400 font-extrabold text-sm sm:text-base">
               {formatBilingualNumber(totalDonors, language)}

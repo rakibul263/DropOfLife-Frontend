@@ -36,13 +36,13 @@ export function HeroSection({
 
       {/* 2. Flat Modern High-Impact Clean Headline */}
       <div className="space-y-2">
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
+        <h1 className="text-2xl min-[380px]:text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-normal leading-tight sm:leading-snug">
           <span className="inline-block text-zinc-100">{t.titlePart1}</span>{' '}
           <span className="bg-gradient-to-r from-rose-500 via-red-400 via-pink-400 to-rose-500 bg-clip-text text-transparent animate-text-shimmer inline-block">
             {t.titlePart2}
           </span>
         </h1>
-        <p className="text-sm sm:text-base lg:text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed font-normal pt-1">
+        <p className="text-xs sm:text-base lg:text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed font-normal pt-1">
           {t.desc}
         </p>
       </div>
@@ -83,22 +83,22 @@ export function HeroSection({
         </form>
 
         {/* Quick Direct Actions Strip */}
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-3.5">
-          <Link href="/emergency-requests">
+        <div className="flex flex-col min-[440px]:flex-row items-stretch min-[440px]:items-center justify-center gap-2.5 sm:gap-3 pt-3.5">
+          <Link href="/emergency-requests" className="w-full min-[440px]:w-auto">
             <Button
               size="sm"
-              className="bg-zinc-900 hover:bg-zinc-800 text-rose-400 hover:text-rose-300 font-extrabold px-5 h-10 text-xs sm:text-sm rounded-xl border border-rose-500/40 shadow-md cursor-pointer"
+              className="w-full min-[440px]:w-auto bg-zinc-900 hover:bg-zinc-800 text-rose-400 hover:text-rose-300 font-extrabold px-5 h-10 text-xs sm:text-sm rounded-xl border border-rose-500/40 shadow-md cursor-pointer justify-center"
             >
               <Activity className="w-4 h-4 mr-2 text-rose-500 animate-pulse" />
               <span>{t.requestBloodBtn}</span>
             </Button>
           </Link>
 
-          <Link href="/register">
+          <Link href="/register" className="w-full min-[440px]:w-auto">
             <Button
               variant="outline"
               size="sm"
-              className="bg-zinc-900/80 hover:bg-zinc-800 text-zinc-200 font-extrabold px-5 h-10 text-xs sm:text-sm rounded-xl border border-zinc-700 shadow-md cursor-pointer"
+              className="w-full min-[440px]:w-auto bg-zinc-900/80 hover:bg-zinc-800 text-zinc-200 font-extrabold px-5 h-10 text-xs sm:text-sm rounded-xl border border-zinc-700 shadow-md cursor-pointer justify-center"
             >
               <span>{t.registerDonorBtn}</span>
               <ArrowRight className="w-3.5 h-3.5 ml-2" />
@@ -108,7 +108,7 @@ export function HeroSection({
       </div>
 
       {/* 4. Live Telemetry Micro-Pill Row */}
-      <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-zinc-300 font-medium border-t border-zinc-800/80 max-w-2xl mx-auto">
+      <div className="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[11px] sm:text-xs text-zinc-300 font-medium border-t border-zinc-800/80 max-w-2xl mx-auto">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
           <span>{language === 'bn' ? '৬৪ জেলায় নেটওয়ার্ক সক্রিয়' : 'Active across 64 Districts'}</span>

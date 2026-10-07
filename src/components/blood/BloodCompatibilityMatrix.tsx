@@ -17,7 +17,7 @@ export const BloodCompatibilityMatrix: React.FC = () => {
   const summaryText = t.summaries[selectedGroup] || compatibility.summary;
 
   return (
-    <Card variant="crimson" className="p-7 sm:p-10 lg:p-12 shadow-2xl relative overflow-hidden">
+    <Card variant="crimson" className="p-5 sm:p-10 lg:p-12 shadow-2xl relative overflow-hidden">
       {/* Top Ambient Subtle Glow */}
       <div
         className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[600px] h-[180px] bg-[radial-gradient(ellipse_at_center,rgba(225,29,72,0.12)_0%,transparent_70%)] blur-2xl"
@@ -55,7 +55,7 @@ export const BloodCompatibilityMatrix: React.FC = () => {
         <label className="block text-xs font-black text-zinc-300 uppercase tracking-wider">
           {t.choosePrompt}
         </label>
-        <div className="grid grid-cols-4 sm:grid-cols-8 gap-3 sm:gap-3.5">
+        <div className="grid grid-cols-4 sm:grid-cols-8 gap-2 sm:gap-3.5">
           {BLOOD_GROUPS.map((group) => {
             const isSelected = selectedGroup === group;
             return (
@@ -63,13 +63,13 @@ export const BloodCompatibilityMatrix: React.FC = () => {
                 key={group}
                 type="button"
                 onClick={() => setSelectedGroup(group)}
-                className={`py-3.5 px-3 rounded-2xl border text-center transition-all duration-200 cursor-pointer ${
+                className={`py-2.5 sm:py-3.5 px-2 sm:px-3 rounded-xl sm:rounded-2xl border text-center transition-all duration-200 cursor-pointer ${
                   isSelected
                     ? 'bg-gradient-to-br from-rose-600 via-rose-600 to-red-600 border-rose-400 text-white shadow-[0_8px_22px_-3px_rgba(225,29,72,0.65)] font-black scale-[1.04] ring-2 ring-rose-400/40'
                     : 'bg-zinc-900/90 border-zinc-800 text-zinc-200 font-extrabold hover:border-zinc-600 hover:text-white hover:bg-zinc-850 shadow-sm'
                 }`}
               >
-                <div className="text-lg sm:text-xl font-black">{group}</div>
+                <div className="text-base sm:text-xl font-black">{group}</div>
               </button>
             );
           })}

@@ -185,7 +185,7 @@ export function EmergencyRequestCard({
             <h3 className="text-base font-black text-white mt-0.5 truncate">{request.patientName}</h3>
           </div>
 
-          <div className="flex items-start gap-2 text-xs text-zinc-300 h-9 shrink-0">
+          <div className="flex items-start gap-2 text-xs text-zinc-300 min-h-[38px] shrink-0">
             <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0 mt-0.5" />
             <div className="min-w-0 flex-1">
               <p className="font-bold text-white truncate">{request.hospitalName}</p>
@@ -199,7 +199,7 @@ export function EmergencyRequestCard({
           </div>
 
           {/* Reason Section (Uniform Fixed Height Box) */}
-          <div className="p-2.5 rounded-xl bg-black/25 border border-white/5 h-[48px] flex items-center shrink-0">
+          <div className="p-2.5 rounded-xl bg-black/25 border border-white/5 min-h-[48px] flex items-center shrink-0">
             <p className="text-[11px] text-zinc-300 leading-relaxed border-l-2 border-rose-600/60 pl-2.5 line-clamp-2 italic w-full">
               "{request.reason || (language === 'bn' ? 'জরুরি রক্তের আবেদন (নিকটবর্তী রক্তদাতাদের সহায়তা কাম্য)' : 'Emergency blood transfusion required')}"
             </p>
@@ -225,11 +225,11 @@ export function EmergencyRequestCard({
       </div>
 
       {/* ── FOOTER: Action Buttons (Strictly pinned to bottom) ── */}
-      <div className="relative z-10 px-5 pb-5 pt-0 mt-auto shrink-0 flex gap-2.5">
+      <div className="relative z-10 px-4 sm:px-5 pb-4 sm:pb-5 pt-0 mt-auto shrink-0 flex flex-col min-[380px]:flex-row gap-2 sm:gap-2.5">
         {/* Call Button */}
         <a
           href={`tel:${request.contactNumber || '+8801521711716'}`}
-          className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 text-white text-xs font-bold transition-all shrink-0 whitespace-nowrap backdrop-blur-sm"
+          className="flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 text-white text-xs font-bold transition-all shrink-0 whitespace-nowrap backdrop-blur-sm w-full min-[380px]:w-auto"
         >
           <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
           <span>{t.callAttendant}</span>

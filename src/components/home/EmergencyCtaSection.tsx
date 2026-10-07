@@ -33,11 +33,11 @@ export function EmergencyCtaSection() {
             {t.desc}
           </p>
 
-          <div className="flex flex-wrap items-center gap-3.5 pt-3">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3.5 pt-3">
             {/* Primary Landline Hotline */}
             <a
               href="tel:029351969"
-              className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-white text-zinc-950 hover:bg-zinc-100 font-black text-base shadow-2xl hover:scale-105 transition-transform"
+              className="inline-flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-white text-zinc-950 hover:bg-zinc-100 font-black text-base shadow-2xl hover:scale-105 transition-transform w-full sm:w-auto"
             >
               <PhoneCall className="w-5 h-5 text-rose-600" />
               <span>{t.hotlineBtn}</span>
@@ -46,17 +46,17 @@ export function EmergencyCtaSection() {
             {/* Mobile 24/7 Hotline */}
             <a
               href="tel:+8801521711716"
-              className="inline-flex items-center gap-2.5 px-6 py-4 rounded-2xl bg-rose-950/90 border border-rose-500/60 text-white font-mono font-bold text-sm sm:text-base hover:border-rose-400 hover:bg-rose-900 transition-all shadow-xl"
+              className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-rose-950/90 border border-rose-500/60 text-white font-mono font-bold text-sm sm:text-base hover:border-rose-400 hover:bg-rose-900 transition-all shadow-xl w-full sm:w-auto"
             >
               <PhoneCall className="w-4 h-4 text-rose-400" />
               <span>{t.mobileBtn}</span>
             </a>
 
-            <Link href="/emergency-requests">
+            <Link href="/emergency-requests" className="w-full sm:w-auto">
               <Button
                 variant="outline"
                 size="lg"
-                className="h-14 border-zinc-700 bg-zinc-900/95 hover:bg-zinc-800 text-white font-bold text-sm sm:text-base px-6 rounded-2xl shadow-xl"
+                className="w-full h-14 border-zinc-700 bg-zinc-900/95 hover:bg-zinc-800 text-white font-bold text-sm sm:text-base px-6 rounded-2xl shadow-xl justify-center"
               >
                 <span>{t.broadcastBtn}</span>
                 <ArrowRight className="w-4 h-4 ml-2" />

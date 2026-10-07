@@ -161,7 +161,7 @@ export default function CampsPage() {
   };
 
   return (
-    <div className="w-full max-w-[92%] sm:max-w-[85%] lg:max-w-[80%] mx-auto px-4 sm:px-6 py-10 space-y-8">
+    <div className="w-full max-w-[96%] sm:max-w-[90%] lg:max-w-[85%] xl:max-w-[80%] mx-auto px-2 sm:px-6 py-8 sm:py-10 space-y-8">
       <div>
         <div className="inline-flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-widest mb-1.5">
           <Calendar className="w-4 h-4 text-rose-500" />
@@ -205,7 +205,7 @@ export default function CampsPage() {
                     <span className="text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-md bg-rose-950/80 text-rose-300 border border-rose-500/50 shadow-sm backdrop-blur-md inline-block">
                       {camp.status} {t.drive}
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-black text-white mt-2 leading-snug line-clamp-1">
+                    <h3 className="text-xl sm:text-2xl font-black text-white mt-2 leading-snug line-clamp-2 min-h-[36px]">
                       {camp.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-zinc-200 font-medium mt-1">
@@ -213,7 +213,7 @@ export default function CampsPage() {
                     </p>
                   </div>
 
-                  <p className="text-sm text-zinc-200 leading-relaxed font-normal line-clamp-2 min-h-[44px]">
+                  <p className="text-sm text-zinc-200 leading-relaxed font-normal line-clamp-3 min-h-[54px]">
                     {camp.description}
                   </p>
 
